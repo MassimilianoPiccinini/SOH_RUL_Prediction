@@ -1,0 +1,21 @@
+nel dataset CALCE è presente un campo denominato "Step_Index", che vale 2 per la fase di caricamento a corrente costante, 4 per la fase di caricamento a tensione costante e 7 per la fase di scarica;
+
+i valori di capacità si trovano nei campi "Charge_CapacityAh" ("Step_index" 2 e 4) e "Discharge_CapacityAh" ("Step_Index" 7);
+
+per ogni file, andate a prendere i valori di "CurrentA", "VoltageV" e "Charge_CapacityAh" associati ai soli "Step_index" 2 e 4 e create una tabella di dati di carica;
+
+replicate poi per ogni file, in modo da avere il dataframe di addestramento per i dati di carica;
+
+per ogni file, andate a prendere i valori di "CurrentA", "VoltageV" e "Discharge_CapacityAh" associati al solo "Step_index" 7 e create una tabella di dati di scarica;
+
+replicate poi per ogni file, in modo da avere il dataframe di addestramento per i dati di scarica;
+
+il dataset è affetto da diversi outllier che vanno rimossi preventivamente, ad esempio:   
+eliminate i log con variabile temporale negativa
+eliminate il picco di corrente che si trova nella fase di carica quando si passa da CC a CV (e.g. sogliate a poco più di 0.5 A)
+eliminate differenze troppo grandi tra valori di corrente consecutivi
+eliminate cicli la cui capacità è molto differente rispetto a quella dei cicli vicini
+
+alla fine del filtraggio avrete due dataframe, uno per i dati di carica e uno per quelli di scarica, ridotti in dimensioni dal 5 al 10 % circa rispetto al dataframe originale (dipende da quanto sarete conservativi con le rimozioni)
+
+una volta ottenuto il dataset "filtrato" potete andare ad aggiungere la SOH utilizzando la formula del paper
